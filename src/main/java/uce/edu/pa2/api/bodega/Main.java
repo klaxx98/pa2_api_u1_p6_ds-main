@@ -33,8 +33,19 @@ public class Main {
 
         @Override
         public int run(String ... args) {
-            Pedido pedido = new Pedido("David Salazar", "Coca Cola", 10.0, "dasalazari@uce.edu.ec", "0987654321");
+            
+            //CASO 1
+            Pedido pedido = new Pedido("David Salazar", "Coca Cola", 75.0, "dasalazari@uce.edu.ec", "0987654321");
             this.service.registrar(pedido);
+            
+            //CASO 2
+            Pedido pedido2 = new Pedido("David Salazar", "Coca Cola", 120.0, "dasalazari@uce.edu.ec", "0987654321");
+            this.service.registrar(pedido2);
+
+            //CASO 3
+            Pedido pedido3 = new Pedido("David Salazar", "Coca Cola", 30.0, "dasalazari@uce.edu.ec", "0987654321");
+            this.service.registrar(pedido3);
+
             return 0;
         }
     }

@@ -40,17 +40,22 @@ public class PedidoService {
     private NotificadorSelector selector;
 
     public void registrar(Pedido pedido) {
-        System.out.println("Registrando pedido");
+        System.out.println("\nRegistrando pedido");
         System.out.println("Cliente: " + pedido.getCliente());
         System.out.println("Total: " + pedido.getTotal());
-        System.out.println("Guardando en la base de datos");
+        System.out.println("**Guardando en la base de datos**");
 
         //NotificadorMail n1 = new NotificadorMail(); SIN DI
         //CON DI por el container
         //notificadorMail.enviar(pedido.getCorreo(), "Se ha creado un pedido para ser atendido");
 
         Notificador notificador = this.selector.seleccionar(pedido.getTotal());
-        notificador.enviar(pedido.getDestino(), " Pedido registrado");
+
+        if (pedido.getTotal() > 100) {
+            notificador.enviar(pedido.getDestino(), " Pedido registrado");
+        } else {
+            notificador.enviar(pedido.getTelefono(), " Pedido registrado");
+        }
 
         /*
         if (pedido.getTotal() > 100) {

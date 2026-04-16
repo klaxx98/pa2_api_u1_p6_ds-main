@@ -30,8 +30,8 @@ public class Main {
 
         //MODELOS IoC
         //1. DI
-        //@Inject
-        //private PedidoService service;
+        @Inject
+        private PedidoService service2;
 
         //2. Service Locator (lookup)
         //private PedidoService service = CDI.current().select(PedidoService.class).get();
@@ -39,8 +39,8 @@ public class Main {
         @Override
         public int run(String ... args) {
 
-            final PedidoService service = CDI.current().select(PedidoService.class).get();
-            
+            PedidoService service = CDI.current().select(PedidoService.class).get();
+
             //CASO 1
             Pedido pedido = new Pedido("David Salazar", "Coca Cola", 75.0, "dasalazari@uce.edu.ec", "0987654321");
             service.registrar(pedido);

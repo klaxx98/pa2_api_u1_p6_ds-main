@@ -3,7 +3,7 @@ package uce.edu.pa2.api.bodega;
 import io.quarkus.runtime.Quarkus;
 import io.quarkus.runtime.QuarkusApplication;
 import io.quarkus.runtime.annotations.QuarkusMain;
-import jakarta.inject.Inject;
+import jakarta.enterprise.inject.spi.CDI;
 
 @QuarkusMain
 public class Main {
@@ -28,23 +28,32 @@ public class Main {
 
     public static class App implements QuarkusApplication{
 
-        @Inject
-        private PedidoService service;
+        //MODELOS IoC
+        //1. DI
+        //@Inject
+        //private PedidoService service;
+
+        //2. Service Locator (lookup)
+        //private PedidoService service = CDI.current().select(PedidoService.class).get();
 
         @Override
         public int run(String ... args) {
+
+            final PedidoService service = CDI.current().select(PedidoService.class).get();
             
             //CASO 1
             Pedido pedido = new Pedido("David Salazar", "Coca Cola", 75.0, "dasalazari@uce.edu.ec", "0987654321");
-            this.service.registrar(pedido);
+            service.registrar(pedido);
             
             //CASO 2
             Pedido pedido2 = new Pedido("David Salazar", "Coca Cola", 120.0, "dasalazari@uce.edu.ec", "0987654321");
-            this.service.registrar(pedido2);
+            service.registrar(pedido2);
 
             //CASO 3
             Pedido pedido3 = new Pedido("David Salazar", "Coca Cola", 30.0, "dasalazari@uce.edu.ec", "0987654321");
-            this.service.registrar(pedido3);
+            service.registrar(pedido3);
+
+            System.out.println("\n**Proceso finalizado**\n");
 
             return 0;
         }

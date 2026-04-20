@@ -27,7 +27,7 @@ public class Main {
     }
 
     public static class App implements QuarkusApplication{
-
+        /*
         @Inject
         private PedidoService service;
 
@@ -37,6 +37,18 @@ public class Main {
             this.service.registrar(pedido);
             return 0;
         }
+        */
+       @Inject
+       private AmbitoAplicacion ambitoAplicacion;
+
+       @Override
+       public int run(String ... args) {
+           this.ambitoAplicacion.incrementar();
+           this.ambitoAplicacion.incrementar();
+           int valor = this.ambitoAplicacion.incrementar();
+           System.out.println(valor);
+           return 0;
+       }
     }
 
 }

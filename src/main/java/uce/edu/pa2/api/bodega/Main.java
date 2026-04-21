@@ -6,106 +6,38 @@ import io.quarkus.runtime.annotations.QuarkusMain;
 import jakarta.inject.Inject;
 
 @QuarkusMain
-public class Main {
+public class Main implements QuarkusApplication {
 
-    public static void main(String[] args) {
+    @Inject
+    Tienda tienda;
+    @Inject
+    Cajero cajero;
+    @Inject
+    Registro registro;
+    @Inject
+    Ticket ticket;    
 
-        /*
-        SeContainer container = SeContainerInitializer.newInstance().initialize();
+    @Override
+    public int run(String... args) {
+        //Inicio de la aplicación
+        System.out.println("\nTienda: " + tienda.getName());
+        System.out.println("Ticket: " + ticket.verTicket() + "\n");
+        registro.registrar("Se inició la aplicación con " + ticket.verTicket());
 
-        PedidoService service = container.select(PedidoService.class).get();
+        //Simulación de atención al cliente
+        cajero.atender();
 
-        Pedido pedido = new Pedido("David Salazar", "Coca Cola", 10.0, "dasalazari@uce.edu.ec");
+        //Revisión del historial de eventos
+        System.out.println("\n***Revisión del historial de eventos***");
+        System.out.println("Eventos registrados: " + registro.getHistorial());
+        System.out.println();
 
-        service.registrar(pedido);
-
-        container.close();
-        */
-
-        Quarkus.run(App.class, args);
-        //CAPTURA GUARDADA EN /resources
+        return 0;
     }
 
-    public static class App implements QuarkusApplication{
+    public static void main(String... args) {
+        Quarkus.run(Main.class, args);
 
-        /*
-        @Inject
-        private PedidoService service;
-
-        @Override
-        public int run(String ... args) {
-            Pedido pedido = new Pedido("David Salazar", "Coca Cola", 10.0, "dasalazari@uce.edu.ec", "0987654321");
-            this.service.registrar(pedido);
-            return 0;
-        }
-        */
-
-       @Inject
-       private AmbitoAplicacion ambitoAplicacion;
-
-       @Inject
-       private ClaseIntermedia claseIntermedia;
-
-       //@Inject
-       //private AmbitoRequest ambitoRequest;
-
-       @Inject
-       private AmbitoInject ambitoInject;
-
-       @Inject
-       private AmbitoSingleton ambitoSingleton;
-
-       @Override
-       public int run(String ... args) {
-
-       /*
-       // CASO 1: Tiene destino registrado -> Debería generar factura PDF
-            System.out.println("\n--- PRUEBA 1: CLIENTE CON EMAIL ---");
-            Pedido pedido1 = new Pedido("David Salazar", "PC", 1200, "dasalazari@uce.edu.ec");
-            pedidoService.registrar(pedido1, pagoe);
-
-            // CASO 2: NO tiene destino (null) -> Debería generar comprobante FÍSICO
-            System.out.println("\n--- PRUEBA 2: CLIENTE SIN EMAIL ---");
-            // Pasamos null en el destino para activar la lógica de comprobante físico
-            Pedido pedido2 = new Pedido("David Salazar", "Teclado", 80, null);
-            pedidoService.registrar(pedido2, pagoc);
-
-            // CASO 3: Tiene destino pero es una cadena vacía "" -> Debería generar comprobante FÍSICO
-            System.out.println("\n--- PRUEBA 3: CLIENTE CON EMAIL VACÍO ---");
-            Pedido pedido3 = new Pedido("David Salazar", "Mouse", 40, "");
-            pedidoService.registrar(pedido3, pagoe);
-       */
-
-           System.out.println(this.ambitoAplicacion.incrementar());
-           System.out.println(this.ambitoAplicacion.incrementar());
-           System.out.println(this.ambitoAplicacion.incrementar());
-        
-           this.claseIntermedia.imprimirObjetoValor();
-
-           /*
-           System.out.println("***AMBITO REQUEST***");
-           ambitoRequest.incrementar();
-           System.out.println(this.ambitoRequest.incrementar());
-           System.out.println(this.ambitoRequest.incrementar());
-           System.out.println(this.ambitoRequest.incrementar());
-           */
-
-           System.out.println("***AMBITO DEPENDENT***");
-           System.out.println(this.ambitoInject.incrementar());
-           System.out.println(this.ambitoInject.incrementar());
-           System.out.println(this.ambitoInject.incrementar());
-
-           this.claseIntermedia.imprimirValorInject(); //Es un objeto nuevo
-
-           System.out.println("***AMBITO SINGLETON***");
-           System.out.println(this.ambitoSingleton.incrementar());
-           System.out.println(this.ambitoSingleton.incrementar());
-           System.out.println(this.ambitoSingleton.incrementar());
-
-           this.claseIntermedia.imprimirValorSingleton(); //Es el mismo objeto
-
-           return 0;
-       }
     }
 
 }

@@ -39,7 +39,10 @@ public class PedidoService {
     @Inject
     private NotificadorSelector selector;
 
-    public void registrar(Pedido pedido) {
+    @Inject
+    private ComprobanteSelector comprobanteSelector;
+
+    public void registrar(Pedido pedido, PagoEstrategia pago) {
         System.out.println("Registrando pedido");
         System.out.println("Cliente: " + pedido.getCliente());
         System.out.println("Total: " + pedido.getTotal());
@@ -49,8 +52,19 @@ public class PedidoService {
         //CON DI por el container
         //notificadorMail.enviar(pedido.getCorreo(), "Se ha creado un pedido para ser atendido");
 
+        // 1. Procesar el pago
+        pago.realizar(pedido.getTotal());
+
+        // 2. Logica comprobante
+        // El selector nos devuelve la implementacion correcta
+        GeneradorComprobante comprobante = comprobanteSelector.seleccionar(pedido.getDestino());
+        comprobante.procesar(pedido);
+
+        // 3. Notificacion
         Notificador notificador = this.selector.seleccionar(pedido.getTotal());
         notificador.enviar(pedido.getDestino(), " Pedido registrado");
+
+        System.out.println("Pedido registrado exitosamente");
 
         /*
         if (pedido.getTotal() > 100) {

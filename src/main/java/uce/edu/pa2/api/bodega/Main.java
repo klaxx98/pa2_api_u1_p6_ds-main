@@ -15,42 +15,26 @@ public class Main {
     public static class App implements QuarkusApplication{
 
         @Inject
-        private AmbitoAplicacion ambitoAplicacion;
+        private ProcesadorVentaService procesadorVentaService;
 
         @Inject
-        private ClaseIntermedia claseIntermedia;
-
-        @Inject
-        private AmbitoInject ambitoInject;
-
-        @Inject
-        private AmbitoSingleton ambitoSingleton;
+        private EstadisticasVentasGlobales estadisticasVentasGlobales;
 
         @Override
         public int run(String ... args) {
 
-        System.out.println(this.ambitoAplicacion.incrementar());
-        System.out.println(this.ambitoAplicacion.incrementar());
-        System.out.println(this.ambitoAplicacion.incrementar());
-            
-        this.claseIntermedia.imprimirObjetoValor();
+            Venta v1 = new Venta("David Salazar", 70.0);
+            Venta v2 = new Venta("Cliente 2", 40.0);
+            Venta v3 = new Venta("Cliente 3", 20.0);
 
-        System.out.println("***AMBITO DEPENDENT***");
-        System.out.println(this.ambitoInject.incrementar());
-        System.out.println(this.ambitoInject.incrementar());
-        System.out.println(this.ambitoInject.incrementar());
+            this.procesadorVentaService.procesar(v1);
+            this.procesadorVentaService.procesar(v2);
+            this.procesadorVentaService.procesar(v3);
 
-        this.claseIntermedia.imprimirValorInject(); //Es un objeto nuevo
+            this.estadisticasVentasGlobales.mostrarEstadisticasGlobales();
+            System.out.println();
 
-        System.out.println("***AMBITO SINGLETON***");
-        System.out.println(this.ambitoSingleton.incrementar());
-        System.out.println(this.ambitoSingleton.incrementar());
-        System.out.println(this.ambitoSingleton.incrementar());
-
-        this.claseIntermedia.imprimirValorSingleton(); //Es el mismo objeto
-
-        return 0;
+            return 0;
        }
     }
-
 }

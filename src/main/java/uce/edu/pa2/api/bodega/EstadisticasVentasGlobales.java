@@ -15,7 +15,7 @@ public class EstadisticasVentasGlobales {
     }
 
     public void mostrarEstadisticasGlobales() {
-        System.out.println("***Estadísticas Globales***");
+        System.out.println("\n***Estadísticas Globales***");
         System.out.println("Cantidad de ventas: " + this.totalVentas);
         System.out.println("Valor total vendido: " + this.montoTotalVendido);
     }

@@ -18,6 +18,12 @@ public class Main {
         private ProcesadorVentaService procesadorVentaService;
 
         @Inject
+        private ProcesadorVentaService1 procesadorVentaService1;
+
+        @Inject
+        private ProcesadorVentaOnlineService procesadorVentaServiceOnline;
+
+        @Inject
         private EstadisticasVentasGlobales estadisticasVentasGlobales;
 
         @Override
@@ -26,10 +32,17 @@ public class Main {
             Venta v1 = new Venta("David Salazar", 70.0);
             Venta v2 = new Venta("Cliente 2", 40.0);
             Venta v3 = new Venta("Cliente 3", 20.0);
+            Venta v4 = new Venta("Cliente 4", 20.0);
+            Venta v5 = new Venta("Cliente 4", 20.0);
 
             this.procesadorVentaService.procesar(v1);
             this.procesadorVentaService.procesar(v2);
             this.procesadorVentaService.procesar(v3);
+            this.procesadorVentaService1.procesar(v4);
+            this.procesadorVentaService1.procesar(v5);
+            this.procesadorVentaServiceOnline.procesar(v3);
+            this.procesadorVentaServiceOnline.procesar(v4);
+            this.procesadorVentaServiceOnline.procesar(v5);
 
             this.estadisticasVentasGlobales.mostrarEstadisticasGlobales();
             System.out.println();

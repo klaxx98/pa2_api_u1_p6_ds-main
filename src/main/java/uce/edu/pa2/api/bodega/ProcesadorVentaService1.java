@@ -4,7 +4,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
-public class ProcesadorVentaService {
+public class ProcesadorVentaService1 {
 
     @Inject
     private EstadisticasVentasGlobales estadisticasVentasGlobales;
@@ -13,8 +13,6 @@ public class ProcesadorVentaService {
     private TrackingVenta trackingVenta;
     
     public void procesar(Venta venta) {
-
-        //this.trackingVenta.reiniciar();
 
         trackingVenta.iniciar();
 

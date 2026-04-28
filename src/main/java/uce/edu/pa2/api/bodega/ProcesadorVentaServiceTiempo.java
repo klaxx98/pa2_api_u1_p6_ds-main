@@ -4,19 +4,13 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
-public class ProcesadorVentaService {
+public class ProcesadorVentaServiceTiempo {
 
     @Inject
     private EstadisticasVentasGlobales estadisticasVentasGlobales;
     
-    @Inject // Como se inyecta TrackingVenta se crea un objeto
-    private TrackingVenta trackingVenta;
-    
+    @MedirTiempo
     public void procesar(Venta venta) {
-
-        //this.trackingVenta.reiniciar();
-
-        trackingVenta.iniciar();
 
         // Inicio de la venta
         System.out.println("Procesando pedido");
@@ -29,13 +23,32 @@ public class ProcesadorVentaService {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
-        
-        // Finaliza la venta
-        trackingVenta.finalizar();
 
         // Registra estadisticas
         this.estadisticasVentasGlobales.registrarVenta(venta.getTotal());
+        System.out.println("Final del pedido");
+        
+    }
 
+    @MedirTiempo
+    public void reprocesar(Venta venta) {
+
+        // Inicio de la venta
+        System.out.println("Reprocesando pedido");
+        // Consultando el stock de cada item
+        // Consultando en la base de datos
+
+        // Simular tiempo de demora
+        try {
+            Thread.sleep(250);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
+        // Registra estadisticas
+        this.estadisticasVentasGlobales.registrarVenta(venta.getTotal());
+        System.out.println("Final del reproceso");
+        
     }
 
 }

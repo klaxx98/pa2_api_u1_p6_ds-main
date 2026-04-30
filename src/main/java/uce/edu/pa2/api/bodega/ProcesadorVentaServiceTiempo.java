@@ -10,7 +10,10 @@ public class ProcesadorVentaServiceTiempo {
     private EstadisticasVentasGlobales estadisticasVentasGlobales;
     
     @MedirTiempo
+    @Log
     public void procesar(Venta venta) {
+
+        //System.out.println("Entró al método con los siguientes valores: " + venta.getCliente());
 
         // Inicio de la venta
         System.out.println("Procesando pedido");
@@ -27,6 +30,8 @@ public class ProcesadorVentaServiceTiempo {
         // Registra estadisticas
         this.estadisticasVentasGlobales.registrarVenta(venta.getTotal());
         System.out.println("Final del pedido");
+        //this.reprocesar(venta); // En CDI standar no se ejecuta el interceptor porque es llamada interna
+                                  // En Quarkus sí
         
     }
 

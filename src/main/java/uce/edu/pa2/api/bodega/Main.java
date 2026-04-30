@@ -18,9 +18,6 @@ public class Main {
         private ProcesadorVentaServiceTiempo procesador;
 
         @Inject
-        private InventarioService inventarioService;
-
-        @Inject
         private EstadisticasVentasGlobales estadisticasVentasGlobales;
 
         @Override
@@ -28,11 +25,9 @@ public class Main {
 
             Venta v1 = new Venta("David Salazar", 70.0);
 
+            System.out.println();
             this.procesador.procesar(v1);
-            System.out.println();
-            this.inventarioService.registrarInventario(v1);
-            System.out.println();
-            this.procesador.reprocesar(v1);
+            //this.procesador.reprocesar(v1);
 
             this.estadisticasVentasGlobales.mostrarEstadisticasGlobales();
             System.out.println();

@@ -15,22 +15,13 @@ public class Main {
     public static class App implements QuarkusApplication{
 
         @Inject
-        private ProcesadorVentaServiceTiempo procesador;
-
-        @Inject
-        private EstadisticasVentasGlobales estadisticasVentasGlobales;
+        private ProcesadorCompraService compraService;
 
         @Override
         public int run(String ... args) {
 
-            Venta v1 = new Venta("David Salazar", 70.0);
-
-            System.out.println();
-            this.procesador.procesar(v1);
-            //this.procesador.reprocesar(v1);
-
-            this.estadisticasVentasGlobales.mostrarEstadisticasGlobales();
-            System.out.println();
+            Compra compra1 = new Compra("David Salazar", 100.0, 0.0);
+            this.compraService.procesar(compra1);
 
             return 0;
        }

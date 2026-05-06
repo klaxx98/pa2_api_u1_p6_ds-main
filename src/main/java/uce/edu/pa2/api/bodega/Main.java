@@ -20,7 +20,7 @@ public class Main {
         @Override
         public int run(String ... args) {
 
-            Compra compra1 = new Compra("David Salazar", 100.0, 0.0);
+            Compra compra1 = new Compra("David Salazar", 250.0, 0.0);
             this.compraService.procesar(compra1);
 
             return 0;

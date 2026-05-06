@@ -10,7 +10,9 @@ public class ProcesadorCompraService {
     @Inject
     private Instance<Descuento> descuentos; // Detecta todas las implementaciones del sistema
                                             // Una lista de implementaciones
-    
+    @Inject
+    private Instance<Impuesto> impuestos;
+
     public void procesar(Compra compra) {
 
         double total = compra.getSubtotal();
@@ -18,10 +20,14 @@ public class ProcesadorCompraService {
         for (Descuento des : descuentos) {
             total = des.aplicar(total);
         }
+
+        for (Impuesto imp : impuestos) {
+            total = imp.aplicar(total);
+        }
         
         compra.setTotal(total);
 
-        System.out.println("Su valor a pagar es: " + compra.getTotal());
+        System.out.println("\nSu valor a pagar es: " + compra.getTotal());
 
     }
 

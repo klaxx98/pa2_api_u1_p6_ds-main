@@ -15,13 +15,16 @@ public class Main {
     public static class App implements QuarkusApplication{
 
         @Inject
-        private ProcesadorCompraService compraService;
+        private ProcesadorImplementacionService implementacionService;
 
         @Override
         public int run(String ... args) {
 
-            Compra compra1 = new Compra("David Salazar", 250.0, 0.0);
-            this.compraService.procesar(compra1);
+            Clase1 clase = new Clase1("Clase 1", new StringBuilder());
+            this.implementacionService.agregarCadena(clase);
+
+            System.out.println("Nombre: " + clase.getNombre());
+            System.out.println("Cadena :" + clase.getCadena().toString());
 
             return 0;
        }

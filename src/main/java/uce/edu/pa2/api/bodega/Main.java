@@ -21,10 +21,17 @@ public class Main {
         public int run(String ... args) {
 
             Clase1 clase = new Clase1("Clase 1", new StringBuilder());
-            this.implementacionService.agregarCadena(clase);
 
             System.out.println("Nombre: " + clase.getNombre());
-            System.out.println("Cadena :" + clase.getCadena().toString());
+            System.out.println("Cadena: " + clase.getCadena().toString());
+            System.out.println();
+
+            this.implementacionService.agregarCadena(clase);
+            System.out.println();
+
+            System.out.println("Nombre: " + clase.getNombre());
+            System.out.println("Cadena: " + clase.getCadena().toString());
+            System.out.println();
 
             return 0;
        }
